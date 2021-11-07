@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var multipleTable = 2
+    @State private var questionCountIndex = 1
+    
+    let questionCounts = [5, 10, 20]
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            Stepper("Multiplication table of: \(multipleTable)", value: $multipleTable, in: 2...12)
+            Section(header: Text("How many questions do you want?")) {
+                Picker("Number of questions", selection: $questionCountIndex) {
+                    ForEach(0..<questionCounts.count) {
+                        Text("\(self.questionCounts[$0])")
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+            }
+        }
     }
 }
 
